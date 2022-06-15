@@ -1,0 +1,10 @@
+{
+  "status":"success",
+  "code":202,
+  "lists":["Qt","Linux","Http"],
+  "teacher":{
+    "name":"wangzhanf",
+    "age":18,
+    "gender":true
+  }
+}

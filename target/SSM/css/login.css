@@ -1,0 +1,36 @@
+*{
+    font-family: "Arial Black";
+    font-size: 16pt;
+    margin: 0;
+    padding: 0;
+}
+
+div,label{
+    display: block;
+    margin: 1em 0;
+}
+
+.loginPan{
+    margin: 8em auto;/*让当前容器本身居中*/
+    width: 30em;
+    height: 8em;
+    background-color: rgba(255,0,255,0.2);
+    padding: 2em;
+}
+
+[type=button]{
+    width: 100%;
+}
+
+#uname,#pass{
+    border: none;
+    outline: none;
+    border-bottom: 0.1em solid rgba(0,0,0,0.5);
+    background-color: transparent;
+    transition: all 300ms ease-in 10ms;
+}
+
+#uname:focus,#pass:focus{
+    border-bottom: 0.2em solid rgba(239,0,46,0.5);
+    transition: all 300ms ease-in 10ms;
+}

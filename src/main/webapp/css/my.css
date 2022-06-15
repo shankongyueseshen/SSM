@@ -1,0 +1,126 @@
+/*
+选择器 {
+    特性1:特性值;
+    property2:特性值;
+    .......
+}
+css是线性加载，  文件格式错误，则后续所有失效
+*/
+
+/*
+    1   通用选择器       “*”表示           匹配所有的元素          页面初始化[抽象不要太具体]
+    2   标签选择器       "标签名"表示       匹配具有该标签的所有元素    标签的初始化
+    3   id选择器        “#id名”表示       匹配页面中具有该id属性的唯一元素       做唯一修饰
+    4   class选择器     “.class名”表示    匹配页面中具有该class属性的多个元素        同类修饰
+    5   组合选择器       “选择器1,选择器2,......”  匹配到任意一个选择器则都会受其影响       复用代码
+
+
+    6   后代选择器       "祖先选择器 后代选择器"表示     匹配祖先选择器匹配的元素内的后代
+    7   直系子选择器     "父选择器>子选择器"表示         匹配父选择器匹配的元素内的直系子后代
+    8   相邻弟弟选择器   "选择器1+选择器2"表示           匹配和第一个选择器匹配的紧邻的兄弟元素
+    9   所有弟弟选择器   "选择器1~选择器2"表示           匹配和第一个选择器匹配的紧邻的所有兄弟元素
+
+    10  伪类选择器       ":状态"表示                     匹配某元素的特定状态，例如鼠标指向，一个集合中第几个后代
+    11  伪元素选择器      "::位置描述"或":位置描述"       一般匹配元素位置    ::before   ::after   ::first-line   ::first-letter
+
+
+
+
+*/
+
+*{
+    font-family: Arial,"Arial Black";
+    font-size: 12pt;/*基准字体使用绝对单位*/
+    margin:0;/*外边距*/
+    padding: 0;/*填充距离*/
+}
+
+li.haha{
+    /*margin: 1em 2em 3em 4em;*/ /*压缩写法：1个数值描述4个方位，  2个数值  描述  上下  左右方位，   4个数值描述顺序是  上右下左*/
+    width: 8em;  /*基准字体设置为12pt，  推荐其他元素使用  em  倍数表示，  rem也是倍数*/
+    display: inline-block; /*行内块，和其他元素默认在同一行（可以设置边距）， block独立一行，inline和其他元素同行（不能设置边距）*/
+}
+#current{
+    color: red;/*颜色可以使用  颜色的英文名称， #RRGGBB    ，rgb()   ,   rgba（）*/
+    background-color: rgba(0,0,255,0.31);/*十进制表示，0-255，   透明度是  0-1 的 100级表示*/
+}
+
+.keyword{
+    font-weight: bolder;
+    text-decoration: underline;/*文字修饰，*/
+}
+
+li,.keyword,#current{
+    /*border-style: solid;*/
+    /*border-color: orange;*/
+    /*border-width: 0.5em;*/
+    /*  多个特性可以压缩，  通过   -   链接的系列特性都可以压缩  */
+    border: 0.1em  solid orchid;
+}
+
+ul.footer{
+    font-size: 0.5em;
+}
+
+
+
+.footer>li{
+    color: blue;
+}
+
+.footer li{
+    color: red;
+}
+
+
+
+.baseline+li{
+    text-decoration: underline;
+}
+
+.baseline~li{
+    color: red;
+}
+
+
+
+.submenu{
+    /*height: 0;*/
+    /*overflow: hidden;!*溢出处理*!*/
+    /*display: none;*/
+    /*visibility: hidden;*/
+    /*opacity: 0;*/
+    display: none;
+}
+
+.menuToggle:hover+.submenu,.submenu:hover{
+    display: block;
+}
+
+
+li:nth-child(3){
+    font-size: 3em;
+}
+
+
+::selection{
+    background: orange;
+    color: gray;
+}
+
+.bookList>li::before{
+    content: "《";
+    margin: 0 3em;
+}
+
+.bookList>li:after{
+    content: "》";
+}
+
+#active{
+    color: blue;
+}
+
+.primary{
+    color: darkred !important;
+}

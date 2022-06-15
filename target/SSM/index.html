@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <!--    所有设备按照视口100%显示-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jq.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<!--点击按钮页面不刷新，在指定区域显示获取到的内容-->
+<input type="button" class="btn btn-danger btn-lg" value="发送请求" />
+
+<input type="text" id="uname" />
+<div id="display">显示数据区</div>
+<script>
+    $(document).ready(function(){
+        $("#uname").keypress(function(){
+            //发送ajax请求
+            $.ajax({
+                url:"http://localhost:8888/SSM_war/data.json",
+                method:"GET",
+                // data:{username:"wzf",password:"123456"},
+                error:function(xhr,status,error){
+                    console.log(status);
+                },
+                success:function(result,status,xhr){//xhr   xmlHttpRequest
+                    console.log(result);
+                    //操作DOM渲染页面
+                    if($("#uname").val() == result.teacher.name){
+                        $("#display").text("已存在同名用户").toggleClass("text-danger");
+                    }else{
+                        $("#display").text("恭喜").toggleClass("text-success");
+                    }
+
+
+                },
+            });
+        });
+
+
+        //业务代码
+        $("input.btn").click(function(){
+            //发送ajax请求
+            $.ajax({
+                url:"./data.json",
+                method:"GET",
+                data:{username:"wzf",password:"123456"},
+                error:function(xhr,status,error){
+                    console.log(status);
+                },
+                success:function(result,status,xhr){//xhr   xmlHttpRequest
+                    console.log(result);
+                    //操作DOM渲染页面
+                    $("#display").text(result.teacher.name);
+
+                },
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
