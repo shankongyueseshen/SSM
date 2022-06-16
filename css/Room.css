@@ -1,0 +1,16 @@
+.d-flex{
+    width: 280px;
+    height:100vh;
+}
+
+.nav-link{
+    margin: 10px;
+}
+
+.col-lg-9{
+    margin: 0 auto;
+}
+
+.header{
+    margin-top: 50px;
+}

@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding:0;
+}
+
+body {
+    background-size:cover;
+    font-size: 15px;
+    font-family: Arial;
+}
+
+.row{
+    width:600px;
+    margin:50px auto;
+}
+
+.box{
+    width:400px;
+    margin:50px auto;
+}
+
+.container{
+    margin-top: 200px;
+}
+
+.btn{
+    width: 100px;
+}
+
+.col-9{
+    margin: 10px auto;
+}
+
