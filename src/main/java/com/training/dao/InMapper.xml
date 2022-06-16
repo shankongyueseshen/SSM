@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.training.dao.InMapper">
+  <resultMap id="BaseResultMap" type="com.training.domain.In">
+    <result column="InID" jdbcType="INTEGER" property="inid" />
+    <result column="CostomerName" jdbcType="VARCHAR" property="costomername" />
+    <result column="CostomerType" jdbcType="VARCHAR" property="costomertype" />
+    <result column="CostomerInDate" jdbcType="TIMESTAMP" property="costomerindate" />
+    <result column="CostomerOutDate0" jdbcType="TIMESTAMP" property="costomeroutdate0" />
+    <result column="RoomID" jdbcType="INTEGER" property="roomid" />
+    <result column="WorkerID" jdbcType="VARCHAR" property="workerid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    InID, CostomerName, CostomerType, CostomerInDate, CostomerOutDate0, RoomID, WorkerID
+  </sql>
+  <select id="selectByExample" parameterType="com.training.domain.InExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from in
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.training.domain.InExample">
+    delete from in
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.training.domain.In">
+    insert into in (InID, CostomerName, CostomerType, 
+      CostomerInDate, CostomerOutDate0, RoomID, 
+      WorkerID)
+    values (#{inid,jdbcType=INTEGER}, #{costomername,jdbcType=VARCHAR}, #{costomertype,jdbcType=VARCHAR}, 
+      #{costomerindate,jdbcType=TIMESTAMP}, #{costomeroutdate0,jdbcType=TIMESTAMP}, #{roomid,jdbcType=INTEGER}, 
+      #{workerid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.training.domain.In">
+    insert into in
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inid != null">
+        InID,
+      </if>
+      <if test="costomername != null">
+        CostomerName,
+      </if>
+      <if test="costomertype != null">
+        CostomerType,
+      </if>
+      <if test="costomerindate != null">
+        CostomerInDate,
+      </if>
+      <if test="costomeroutdate0 != null">
+        CostomerOutDate0,
+      </if>
+      <if test="roomid != null">
+        RoomID,
+      </if>
+      <if test="workerid != null">
+        WorkerID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inid != null">
+        #{inid,jdbcType=INTEGER},
+      </if>
+      <if test="costomername != null">
+        #{costomername,jdbcType=VARCHAR},
+      </if>
+      <if test="costomertype != null">
+        #{costomertype,jdbcType=VARCHAR},
+      </if>
+      <if test="costomerindate != null">
+        #{costomerindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costomeroutdate0 != null">
+        #{costomeroutdate0,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="workerid != null">
+        #{workerid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.training.domain.InExample" resultType="java.lang.Long">
+    select count(*) from in
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update in
+    <set>
+      <if test="record.inid != null">
+        InID = #{record.inid,jdbcType=INTEGER},
+      </if>
+      <if test="record.costomername != null">
+        CostomerName = #{record.costomername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costomertype != null">
+        CostomerType = #{record.costomertype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costomerindate != null">
+        CostomerInDate = #{record.costomerindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.costomeroutdate0 != null">
+        CostomerOutDate0 = #{record.costomeroutdate0,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.roomid != null">
+        RoomID = #{record.roomid,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerid != null">
+        WorkerID = #{record.workerid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update in
+    set InID = #{record.inid,jdbcType=INTEGER},
+      CostomerName = #{record.costomername,jdbcType=VARCHAR},
+      CostomerType = #{record.costomertype,jdbcType=VARCHAR},
+      CostomerInDate = #{record.costomerindate,jdbcType=TIMESTAMP},
+      CostomerOutDate0 = #{record.costomeroutdate0,jdbcType=TIMESTAMP},
+      RoomID = #{record.roomid,jdbcType=INTEGER},
+      WorkerID = #{record.workerid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.training.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.training.domain.Customer">
+    <result column="CustomerID" jdbcType="INTEGER" property="customerid" />
+    <result column="CustomerName" jdbcType="VARCHAR" property="customername" />
+    <result column="CustomerSex" jdbcType="VARCHAR" property="customersex" />
+    <result column="CustomerIDNumber" jdbcType="VARCHAR" property="customeridnumber" />
+    <result column="CustomerType" jdbcType="VARCHAR" property="customertype" />
+    <result column="CustomerPhone" jdbcType="VARCHAR" property="customerphone" />
+    <result column="CustomerCreateDate" jdbcType="DATE" property="customercreatedate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CustomerID, CustomerName, CustomerSex, CustomerIDNumber, CustomerType, CustomerPhone, 
+    CustomerCreateDate
+  </sql>
+  <select id="selectByExample" parameterType="com.training.domain.CustomerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.training.domain.CustomerExample">
+    delete from customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.training.domain.Customer">
+    insert into customer (CustomerID, CustomerName, CustomerSex, 
+      CustomerIDNumber, CustomerType, CustomerPhone, 
+      CustomerCreateDate)
+    values (#{customerid,jdbcType=INTEGER}, #{customername,jdbcType=VARCHAR}, #{customersex,jdbcType=VARCHAR}, 
+      #{customeridnumber,jdbcType=VARCHAR}, #{customertype,jdbcType=VARCHAR}, #{customerphone,jdbcType=VARCHAR}, 
+      #{customercreatedate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.training.domain.Customer">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customerid != null">
+        CustomerID,
+      </if>
+      <if test="customername != null">
+        CustomerName,
+      </if>
+      <if test="customersex != null">
+        CustomerSex,
+      </if>
+      <if test="customeridnumber != null">
+        CustomerIDNumber,
+      </if>
+      <if test="customertype != null">
+        CustomerType,
+      </if>
+      <if test="customerphone != null">
+        CustomerPhone,
+      </if>
+      <if test="customercreatedate != null">
+        CustomerCreateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customerid != null">
+        #{customerid,jdbcType=INTEGER},
+      </if>
+      <if test="customername != null">
+        #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="customersex != null">
+        #{customersex,jdbcType=VARCHAR},
+      </if>
+      <if test="customeridnumber != null">
+        #{customeridnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="customertype != null">
+        #{customertype,jdbcType=VARCHAR},
+      </if>
+      <if test="customerphone != null">
+        #{customerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="customercreatedate != null">
+        #{customercreatedate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.training.domain.CustomerExample" resultType="java.lang.Long">
+    select count(*) from customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update customer
+    <set>
+      <if test="record.customerid != null">
+        CustomerID = #{record.customerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.customername != null">
+        CustomerName = #{record.customername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customersex != null">
+        CustomerSex = #{record.customersex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customeridnumber != null">
+        CustomerIDNumber = #{record.customeridnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customertype != null">
+        CustomerType = #{record.customertype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerphone != null">
+        CustomerPhone = #{record.customerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customercreatedate != null">
+        CustomerCreateDate = #{record.customercreatedate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update customer
+    set CustomerID = #{record.customerid,jdbcType=INTEGER},
+      CustomerName = #{record.customername,jdbcType=VARCHAR},
+      CustomerSex = #{record.customersex,jdbcType=VARCHAR},
+      CustomerIDNumber = #{record.customeridnumber,jdbcType=VARCHAR},
+      CustomerType = #{record.customertype,jdbcType=VARCHAR},
+      CustomerPhone = #{record.customerphone,jdbcType=VARCHAR},
+      CustomerCreateDate = #{record.customercreatedate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

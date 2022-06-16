@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jlu.pms.dao.RoomMapper">
-  <resultMap id="BaseResultMap" type="com.jlu.pms.domain.Room">
-    <id column="rid" jdbcType="INTEGER" property="rid" />
-    <result column="rdes" jdbcType="VARCHAR" property="rdes" />
-    <result column="rno" jdbcType="VARCHAR" property="rno" />
+<mapper namespace="com.training.dao.RoomMapper">
+  <resultMap id="BaseResultMap" type="com.training.domain.Room">
+    <result column="RoomID" jdbcType="INTEGER" property="roomid" />
+    <result column="RoomType" jdbcType="VARCHAR" property="roomtype" />
+    <result column="RoomPrice" jdbcType="REAL" property="roomprice" />
+    <result column="RoomState" jdbcType="VARCHAR" property="roomstate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,9 +66,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    rid, rdes, rno
+    RoomID, RoomType, RoomPrice, RoomState
   </sql>
-  <select id="selectByExample" parameterType="com.jlu.pms.domain.RoomExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.training.domain.RoomExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -81,54 +82,50 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from room
-    where rid = #{rid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from room
-    where rid = #{rid,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.jlu.pms.domain.RoomExample">
+  <delete id="deleteByExample" parameterType="com.training.domain.RoomExample">
     delete from room
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.jlu.pms.domain.Room">
-    insert into room (rid, rdes, rno
-      )
-    values (#{rid,jdbcType=INTEGER}, #{rdes,jdbcType=VARCHAR}, #{rno,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.training.domain.Room">
+    insert into room (RoomID, RoomType, RoomPrice, 
+      RoomState)
+    values (#{roomid,jdbcType=INTEGER}, #{roomtype,jdbcType=VARCHAR}, #{roomprice,jdbcType=REAL}, 
+      #{roomstate,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.jlu.pms.domain.Room">
+  <insert id="insertSelective" parameterType="com.training.domain.Room">
     insert into room
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="rid != null">
-        rid,
+      <if test="roomid != null">
+        RoomID,
       </if>
-      <if test="rdes != null">
-        rdes,
+      <if test="roomtype != null">
+        RoomType,
       </if>
-      <if test="rno != null">
-        rno,
+      <if test="roomprice != null">
+        RoomPrice,
+      </if>
+      <if test="roomstate != null">
+        RoomState,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="rid != null">
-        #{rid,jdbcType=INTEGER},
+      <if test="roomid != null">
+        #{roomid,jdbcType=INTEGER},
       </if>
-      <if test="rdes != null">
-        #{rdes,jdbcType=VARCHAR},
+      <if test="roomtype != null">
+        #{roomtype,jdbcType=VARCHAR},
       </if>
-      <if test="rno != null">
-        #{rno,jdbcType=VARCHAR},
+      <if test="roomprice != null">
+        #{roomprice,jdbcType=REAL},
+      </if>
+      <if test="roomstate != null">
+        #{roomstate,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.jlu.pms.domain.RoomExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.training.domain.RoomExample" resultType="java.lang.Long">
     select count(*) from room
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -137,14 +134,17 @@
   <update id="updateByExampleSelective" parameterType="map">
     update room
     <set>
-      <if test="record.rid != null">
-        rid = #{record.rid,jdbcType=INTEGER},
+      <if test="record.roomid != null">
+        RoomID = #{record.roomid,jdbcType=INTEGER},
       </if>
-      <if test="record.rdes != null">
-        rdes = #{record.rdes,jdbcType=VARCHAR},
+      <if test="record.roomtype != null">
+        RoomType = #{record.roomtype,jdbcType=VARCHAR},
       </if>
-      <if test="record.rno != null">
-        rno = #{record.rno,jdbcType=VARCHAR},
+      <if test="record.roomprice != null">
+        RoomPrice = #{record.roomprice,jdbcType=REAL},
+      </if>
+      <if test="record.roomstate != null">
+        RoomState = #{record.roomstate,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -153,29 +153,12 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update room
-    set rid = #{record.rid,jdbcType=INTEGER},
-      rdes = #{record.rdes,jdbcType=VARCHAR},
-      rno = #{record.rno,jdbcType=VARCHAR}
+    set RoomID = #{record.roomid,jdbcType=INTEGER},
+      RoomType = #{record.roomtype,jdbcType=VARCHAR},
+      RoomPrice = #{record.roomprice,jdbcType=REAL},
+      RoomState = #{record.roomstate,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jlu.pms.domain.Room">
-    update room
-    <set>
-      <if test="rdes != null">
-        rdes = #{rdes,jdbcType=VARCHAR},
-      </if>
-      <if test="rno != null">
-        rno = #{rno,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where rid = #{rid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.jlu.pms.domain.Room">
-    update room
-    set rdes = #{rdes,jdbcType=VARCHAR},
-      rno = #{rno,jdbcType=VARCHAR}
-    where rid = #{rid,jdbcType=INTEGER}
   </update>
 </mapper>
